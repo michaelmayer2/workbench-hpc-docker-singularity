@@ -92,7 +92,7 @@ for i in `docker images | grep ^r-session-complete-hpc | awk '{print $2}'`
 do
     docker tag r-session-complete-hpc:$i localhost:5000/r-session-complete-hpc:$i 
     docker push localhost:5000/r-session-complete-hpc:$i 
-    SINGULARITY_NOHTTPS=1 singularity build ${PWB_SHARED_STORAGE}/containers/$i.sif docker://localhost:5000/r-session-complete-hpc:$i
+    SINGULARITY_NOHTTPS=1 singularity build ${PWB_SHARED_STORAGE}/${LAUNCHER_NAME}/containers/$i.sif docker://localhost:5000/r-session-complete-hpc:$i
 done
 ```
 
