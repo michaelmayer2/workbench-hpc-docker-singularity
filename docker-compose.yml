@@ -1,0 +1,50 @@
+version: "3.2"
+
+services:
+  posit-workbench-hpc: 
+    build:
+      context: .
+      dockerfile: workbench/Dockerfile
+      args: 
+        - SLURM_VERSION=${SLURM_VERSION:-23.02.7}
+        - PWB_VERSION=${PWB_VERSION:-2024.04.2}
+        - OS_VERSION=${OS_VERSION:-ubuntu2204}
+        - SLURM_CONF_DIR=${SLURM_CONF_DIR:-/opt/slurm/etc}
+        - PWB_SHARED_STORAGE=${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}
+    image: posit-workbench-hpc:${OS_VERSION:-ubuntu2204}-${PWB_VERSION:-2024.04.2}-slurm-${SLURM_VERSION:-23.02.7}
+    hostname: posit-workbench
+    privileged: true 
+    volumes:
+      - type: bind
+        source: /etc/passwd
+        target: /etc/passwd
+      - type: bind 
+        source: /etc/shadow
+        target: /etc/shadow
+      - type: bind
+        source: /etc/group
+        target: /etc/group
+      - ${SLURM_CONF_DIR:-/opt/slurm/etc}:${SLURM_CONF_DIR:-/opt/slurm/etc}
+      - /opt/slurm/libexec:/opt/slurm/libexec
+      - ${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}/etc/rstudio:/etc/rstudio
+      - ${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}:${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}
+      - /etc/sssd/sssd.conf:/etc/sssd/sssd.conf
+      - type: bind
+        source: /home
+        target: /home
+    ports:
+      - "8788:8788"
+    environment:
+      RSP_LICENSE: ${PWB_LICENSE}
+      RSW_TESTUSER_UID: slurm
+
+
+  r-session-complete-hpc:
+    build:
+      context: .
+      dockerfile: r-session-complete/Dockerfile
+      args:
+        - SLURM_VERSION=${SLURM_VERSION:-23.02.7}
+        - PWB_VERSION=${PWB_VERSION:-2024.04.2}
+        - OS_VERSION=${OS_VERSION:-ubuntu2204}
+    image: r-session-complete-hpc:${OS_VERSION:-ubuntu2204}-${PWB_VERSION:-2024.04.2}-slurm-${SLURM_VERSION:-23.02.7}
