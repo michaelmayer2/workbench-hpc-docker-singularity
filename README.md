@@ -87,7 +87,7 @@ This will build the `posit-workbench-hpc` docker container as well as `r-session
 Once the `r-session-complete-hpc` image has been built, we need to transform it into a singularity file. This can be done via (run as root)
 
 ```bash
-mkdir ${PWB_SHARED_STORAGE}/containers
+mkdir ${PWB_SHARED_STORAGE}/${LAUNCHER_NAME}/containers
 for i in `docker images | grep ^r-session-complete-hpc | awk '{print $2}'`
 do
     docker tag r-session-complete-hpc:$i localhost:5000/r-session-complete-hpc:$i 
