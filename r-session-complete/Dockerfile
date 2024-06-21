@@ -3,7 +3,7 @@ ARG OS_VERSION="ubuntu2204"
 FROM rstudio/r-session-complete:${OS_VERSION}-${PWB_VERSION}
 
 ARG SLURM_VERSION="23.02.7" 
-ARG SLURM_CONF="/opt/slurm/etc/slurm.conf"
+ARG SLURM_CONF_DIR="/opt/slurm/etc"
 ARG PWB_SHARED_STORAGE="/opt/rstudio/pwb"
 
 # Install and configure munge
