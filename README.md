@@ -4,9 +4,11 @@ This repository documents a minimally invasive way of using Posit Workbench on a
 
 The idea is to use docker on the SLURM head node or one of the login/submit nodes and run all the Workbench sessions in Singularity/Apptainer container.
 
-By default this setup will also allow the launch of local sessions via the local launcher
+By default this setup will also allow the launch of local sessions via the local launcher.
 
 ![Overview](./img/workbench-docker-singularity.drawio.png)
+
+Each login node in this architecture will host a standalone workbench environment (no HA/LB) and will hence allow different user groups to use the same on each login node. 
 
 ## Requirements
 
