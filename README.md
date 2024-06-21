@@ -31,8 +31,9 @@ The following global variables can be defined as environment variables. Their re
 - Posit Workbench version: `PWB_VERSION` : `2024.04.2`
 - Linux distribution: `OS_VERSION`: `ubuntu2204` (other allowed value is `ubuntu2004` for Ubuntu 20.04 LTS (Focal))
 - SLURM Launcher name `LAUNCHER_NAME`: `slurmhpc`
+- PWB License key `PWB_LICENSE`: (you will get this from your CS or Sales person)
 
-Note: `PWB_SHARED_STORAGE` needs to always be defined in the local shell before running any of the singularity image creation steps below even if you rely on the default values.
+Note: Variables `PWB_SHARED_STORAGE`, `LAUNCHER_NAME` and `SLURM_CONF_DIR` as well as `PWB_LICENSE` must always be defined in the shell where the below command are executed
 
 ### Shared storage location
 
@@ -40,7 +41,7 @@ This location will be used for
 
 - Posit Workbench shared storage (workbench metadata, subfolder `shared-data`)
 - Location of Singularity/Apptainer images (subfolder `containers`)
-- Workbench configuration files (subfolder `etc/rstudio`)
+- Workbench configuration files (subfolder `${LAUNCHER_NAME}/etc/rstudio`)
 - renv global package cache (subfolder `renv-cache`)
 
 ### Prepare Workbench configuration files
@@ -99,7 +100,16 @@ You of course can start your own registry via `docker run -p 5000:5000 -d regist
 
 ### Deploy the Workbench container
 
+Finally we can start the container by simply running 
 
+```bash
+docker-compose up -d 
+```
 
+and eventually `docker-compose ps` will report the `posit-workbench-hpc` container as up and running. Note that the `r-session-complete-hpc` container will be marked as failed but this is ok given the fact that we only will run it as singularity container.
 
+## Further readings
 
+- [General Workbench installation](https://docs.posit.co/ide/server-pro/getting_started/installation/installation.html)
+- [Step-by-step SLURM integration](https://docs.posit.co/ide/server-pro/integration/launcher-slurm.html)
+- [SLURM Launcher reference guide](https://docs.posit.co/ide/server-pro/job_launcher/slurm_plugin.html)

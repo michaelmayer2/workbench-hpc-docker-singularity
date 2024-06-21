@@ -26,8 +26,7 @@ services:
         target: /etc/group
       - ${SLURM_CONF_DIR:-/opt/slurm/etc}:${SLURM_CONF_DIR:-/opt/slurm/etc}
       - /opt/slurm/libexec:/opt/slurm/libexec
-      - ${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}/etc/rstudio:/etc/rstudio
-      - ${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}:${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}
+      - ${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}/${LAUNCHER_NANE}/etc/rstudio:/etc/rstudio
       - /etc/sssd/sssd.conf:/etc/sssd/sssd.conf
       - type: bind
         source: /home
