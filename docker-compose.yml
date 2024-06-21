@@ -46,4 +46,5 @@ services:
         - SLURM_VERSION=${SLURM_VERSION:-23.02.7}
         - PWB_VERSION=${PWB_VERSION:-2024.04.2}
         - OS_VERSION=${OS_VERSION:-ubuntu2204}
+        - PWB_SHARED_STORAGE=${PWB_SHARED_STORAGE:-/opt/rstudio/pwb}
     image: r-session-complete-hpc:${OS_VERSION:-ubuntu2204}-${PWB_VERSION:-2024.04.2}-slurm-${SLURM_VERSION:-23.02.7}

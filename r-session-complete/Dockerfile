@@ -4,6 +4,7 @@ FROM rstudio/r-session-complete:${OS_VERSION}-${PWB_VERSION}
 
 ARG SLURM_VERSION="23.02.7" 
 ARG SLURM_CONF="/opt/slurm/etc/slurm.conf"
+ARG PWB_SHARED_STORAGE="/opt/rstudio/pwb"
 
 # Install and configure munge
 RUN apt-get update && apt-get install -y munge libmunge-dev && rm -rf /var/cache/apt/*

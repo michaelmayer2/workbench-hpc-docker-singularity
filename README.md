@@ -62,11 +62,11 @@ The whole build process is all integrated into `docker-compose.yml`. Once you ma
 docker-compose build 
 ```
 
+Note: The `munge.key` needs to be copied into the `munge` folder of the repository before launching the container builds. 
+
 #### Important details for the Dockerfiles
 
 For both containers, we are rebuilding SLURM binaries within the container. Customers that have a set of bespoke plugins need to make sure that they build them into the Docker container.
-
-The `munge.key` needs to be copied into the `munge` folder of the repository before launching the container builds. 
 
 The available R and Python versions are given by the respective Posit provided containers. More details on those containers can be found on [github](https://github.com/rstudio/rstudio-docker-products/). Additional [R](https://docs.posit.co/resources/install-r.html) and [Python](https://docs.posit.co/resources/install-python.html) versions can be added at the customers discretion. Especially the R installations should be added into the Dockerfiles before the R configuration. 
 
@@ -96,7 +96,7 @@ done
 
 where I am assuming that there is a local docker registry available on localhost. The above approach will transform any docker image named `r-session-complete-hpc` into a singularity image file and store it in the `containers` subdirectory of the shared storage folder.
 
-You of course can start your own registry via `docker run -p 5000:5000 -d registry:2`. And the naming convention is of course up-for-debate.
+Note: You can start your own registry via `docker run -p 5000:5000 -d registry:2`. And the naming convention for the singularity images is of course up-for-debate. Feel free to change at your discretion. 
 
 ### Deploy the Workbench container
 
