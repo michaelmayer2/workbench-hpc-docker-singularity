@@ -110,6 +110,20 @@ docker-compose up -d
 
 and eventually `docker-compose ps` will report the `posit-workbench-hpc` container as up and running. Note that the `r-session-complete-hpc` container will be marked as failed but this is ok given the fact that we only will run it as singularity container.
 
+
+## Things to be aware of
+
+The setup above will lead to a fully functional setup for Workbench including running Workbench sessions and Workbench jobs both locally and against a SLURM cluster. 
+
+If a user desires to use a compute framework in a local session that needs bidirectional network connections (or more precisely needs to call back to the local sessions), you will need to 
+ 
+- setup a DNS alias for your docker container (`posit-workbench` by default) on all compute nodes 
+- configure the `posit-workbench-hpc` service in `docker-compose.yml` to additionally listen on a port range (say `60000...60200`)
+- configure SLURM to have `slurmd` only communicate in the same port range via setting `SrunPortRange=60000-60200` in `slurm.conf`. 
+- configure your compute framework to adhere to this port range
+  - `clustermq`: Use `clustermq.ssh.hpc_fwd_port=60000:60200`
+  - `mirai`: Use `ports=sample(60000:60200,1)` in your `host_url()` call.
+
 ## Further readings
 
 - [General Workbench installation](https://docs.posit.co/ide/server-pro/getting_started/installation/installation.html)
