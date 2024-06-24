@@ -48,8 +48,8 @@ RUN sed -i 's#^command.*#command=/startup/launcher/launcher.sh#' /startup/launch
 RUN sed -i "s#.*getent passwd.*#if [ \"\$(getent passwd \$RSW_TESTUSER_UID)\" ] ; then#" /usr/local/bin/startup.sh
 
 # Configure Workbench to use a different folder for Workbench metadata. 
-RUN sed -i '1a export RSTUDIO_DATA_HOME=\\\$HOME/.local/share/rstudio-columbia' /usr/local/bin/startup.sh 
-RUN sed -i '1a export RSTUDIO_DATA_HOME=\\\$HOME/.local/share/rstudio-columbia' /startup/launcher/launcher.sh
+RUN sed -i '1a export RSTUDIO_DATA_HOME=\\\$HOME/.local/share/rstudio-\${LAUNCHER_NAME}' /usr/local/bin/startup.sh 
+RUN sed -i '1a export RSTUDIO_DATA_HOME=\\\$HOME/.local/share/rstudio-\${LAUNCHER_NAME}' /startup/launcher/launcher.sh
 
 # # Configure Workbench to use a different folder for the configs
 # RUN sed -i "1a export RSTUDIO_CONFIG_DIR=${PWB_SHARED_STORAGE}" /usr/local/bin/startup.sh 
