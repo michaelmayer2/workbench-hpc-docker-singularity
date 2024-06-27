@@ -56,7 +56,7 @@ RUN sed -i '1a export RSTUDIO_DATA_HOME=\\\$HOME/.local/share/rstudio-\${LAUNCHE
 # RUN sed -i "1a export RSTUDIO_CONFIG_DIR=${PWB_SHARED_STORAGE}" /startup/launcher/launcher.sh
 
 # Make sure that session-callback address is set appropriately
-RUN x="sed -i 's/^launcher-sessions-callback-address.*/launcher-sessions-callback-address=http://\`curl ifconfig.me\`:8788' /etc/rstudio/rserver.conf" ; sed -i "1a $x" /usr/local/bin/startup.sh 
+RUN x="sed -i 's#^launcher-sessions-callback-address.*#launcher-sessions-callback-address=http://\`curl ifconfig.me\`:8788#' /etc/rstudio/rserver.conf" ; sed -i "1a $x" /usr/local/bin/startup.sh 
 
 # Nice to have for debugging 
 RUN apt-get install vim strace curl wget -y 
